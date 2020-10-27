@@ -1,0 +1,58 @@
+{
+  "name": "insta-clone",
+  "version": "1.0.0",
+  "description": "clone instagram",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run generate && nodemon --exec babel-node src/server.js",
+    "prisma": "npm run migrate",
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate save --name init --experimental && npx prisma migrate up --experimental"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iknowahra/insta-clone.git"
+  },
+  "author": "iknowahra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iknowahra/insta-clone/issues"
+  },
+  "homepage": "https://github.com/iknowahra/insta-clone#readme",
+  "dependencies": {
+    "@babel/core": "7.12.3",
+    "@babel/node": "7.12.1",
+    "@babel/preset-env": "7.12.1",
+    "@graphql-tools/load-files": "6.2.4",
+    "@graphql-tools/merge": "6.2.5",
+    "@prisma/client": "2.10.0-dev.80",
+    "apollo-server": "2.18.2",
+    "graphql-yoga": "1.18.3",
+    "morgan": "1.10.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.10.0-dev.80",
+    "babel-cli": "6.26.0",
+    "dotenv": "8.2.0",
+    "eslint-config-airbnb-base": "14.2.0",
+    "eslint-config-prettier": "6.14.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.1.4",
+    "husky": "4.3.0",
+    "lint-staged": "10.4.2",
+    "nodemon": "2.0.6",
+    "prettier": "2.1.2",
+    "prettier-eslint": "11.0.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint . --fix",
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
