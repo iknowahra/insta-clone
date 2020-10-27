@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+    provider = "mysql"
+    url = "***"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id          Int       @id @default(autoincrement())
+    avatar      String
+    email       String    @unique
+    userName    String    @unique
+    firstName    String?   @default("")
+    lastName    String?
+    bio         String?
+    posts       Post[]
+    likes       Like[]
+    comments    Comment[]
+    rooms       Room[]
+    loginSecret String?
+    followers   User[]    @relation("FollowRelation")
+    following   User[]    @relation("FollowRelation")
+    sender      Message   @relation("from")
+    receiver    Message   @relation("to")
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @default(now()) @updatedAt
+}
+
+model Post {
+    id        Int       @id @default(autoincrement())
+    location  String?
+    caption   String
+    user      User      @relation(fields: [userId], references: [id])
+    userId    Int
+    files     File[]
+    likes     Like[]
+    comments  Comment[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model Like {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(fields: [userId], references: [id])
+    post      Post     @relation(fields: [postId], references: [id])
+    userId    Int
+    postId    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Comment {
+    id        Int      @id @default(autoincrement())
+    text      String
+    user      User     @relation(fields: [userId], references: [id])
+    post      Post     @relation(fields: [postId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    userId    Int
+    postId    Int
+}
+
+model File {
+    id     Int    @id @default(autoincrement())
+    url    String
+    post   Post   @relation(fields: [postId], references: [id])
+    postId Int
+}
+
+model Room {
+    id           Int       @id @default(autoincrement())
+    participants User[]
+    messages     Message[]
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+}
+
+model Message {
+    id         Int      @id @default(autoincrement())
+    text       String
+    from       User     @relation("from", fields: [fromUserId], references: [id])
+    to         User     @relation("to", fields: [toUserId], references: [id])
+    room       Room     @relation(fields: [roomId], references: [id])
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    fromUserId Int
+    toUserId   Int
+    roomId     Int
+}
+

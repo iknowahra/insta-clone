@@ -1,0 +1,80 @@
+scalar Date
+
+type User {
+  id: Int!
+  userName: String!
+  email: String!
+  firstName: String
+  lastName: String
+  bio: String
+  following: [User!]!
+  followers: [User!]!
+  posts: [Post!]!
+  likes: [Like!]!
+  comments: [Comment!]!
+  rooms: [Room!]!
+  loginSecret: String!
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Post {
+  id: Int!
+  location: String
+  caption: String!
+  user: User!
+  files: [File!]!
+  likes: [Like!]!
+  comments: [Comment!]!
+  userId: Int
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Like {
+  id: Int!
+  user: User!
+  post: Post!
+  userId: Int
+  postId: Int
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Comment {
+  id: Int!
+  text: String!
+  user: User!
+  post: Post!
+  userId: Int
+  postId: Int
+  createdAt: Date
+  updatedAt: Date
+}
+
+type File {
+  id: Int!
+  url: String!
+  post: Post!
+  postId: Int
+}
+
+type Room {
+  id: Int!
+  participants: [User!]!
+  messages: [Message!]!
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Message {
+  id: Int!
+  text: String!
+  from: User!
+  to: User!
+  room: Room!
+  fromUserId: Int
+  toUserId: Int
+  createdAt: Date
+  updatedAt: Date
+}
