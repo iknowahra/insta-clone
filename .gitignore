@@ -3,3 +3,4 @@
 .vscode
 *generated/*
 prisma.yml
+test.js

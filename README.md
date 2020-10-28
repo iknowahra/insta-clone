@@ -6,7 +6,7 @@ clone instagram
 
 - [ ] See the feed
 - [ ] Like / Unlike a photo
-- [ ] Comment on a photo
+- [x] Comment on a photo
 - [ ] Search by user
 - [ ] Search by location
 - [ ] See user profile
