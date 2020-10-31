@@ -5,7 +5,7 @@ clone instagram
 ## User Stories
 
 - [ ] See the feed
-- [ ] Like / Unlike a photo
+- [x] Like / Unlike a photo
 - [x] Comment on a photo
 - [ ] Search by user
 - [ ] Search by location
