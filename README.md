@@ -16,3 +16,6 @@ clone instagram
 - [ ] Log in
 - [ ] Upload a photo
 - [ ] Edit the photo (delete)
+- [x] Create Account
+- [x] Request Secret
+- [x] Confirm Secret (login)
