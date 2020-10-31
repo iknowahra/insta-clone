@@ -1,17 +1,23 @@
 import * as dotenv from 'dotenv';
-import path from 'path';
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config();
 
 import { GraphQLServer } from 'graphql-yoga';
 import logger from 'morgan';
 import schema from './schema';
 import { PrismaClient } from '@prisma/client';
+import './utils/passport';
+import { authenticateJwt } from './utils/passport';
 
 const prisma = new PrismaClient();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
-const server = new GraphQLServer({ schema, context: { prisma } });
+const server = new GraphQLServer({
+  schema,
+  context: ({ request }) => {
+    return { request, prisma };
+  },
+});
 
 const options = {
   port: PORT,
@@ -21,6 +27,7 @@ const options = {
 };
 
 server.express.use(logger('dev'));
+server.express.use(authenticateJwt);
 
 server.start(options, ({ port }) =>
   console.log(

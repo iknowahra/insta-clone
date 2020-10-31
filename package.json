@@ -28,11 +28,14 @@
     "@prisma/client": "2.10.0-dev.80",
     "apollo-server": "2.18.2",
     "graphql-yoga": "1.18.3",
+    "jsonwebtoken": "8.5.1",
     "mailgun-js": "0.22.0",
-    "morgan": "1.10.0"
+    "morgan": "1.10.0",
+    "passport": "0.4.1",
+    "passport-jwt": "4.0.0"
   },
   "devDependencies": {
-    "@prisma/cli": "2.10.0-dev.80",
+    "@prisma/cli": "2.10.1",
     "babel-cli": "6.26.0",
     "dotenv": "8.2.0",
     "eslint-config-airbnb-base": "14.2.0",
