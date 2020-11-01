@@ -7,11 +7,12 @@ clone instagram
 - [ ] See the feed
 - [x] Like / Unlike a photo
 - [x] Comment on a photo
-- [ ] Search by user
-- [ ] Search by location
+- [x] Search by user
+- [x] Search by location
 - [ ] See user profile
-- [ ] Follow / unfollow user
-- [ ] Edit my profile
+- [ ] See My profile
+- [x] Follow / unfollow user
+- [x] Edit my profile
 - [ ] create account
 - [ ] Log in
 - [ ] Upload a photo
