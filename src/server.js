@@ -7,6 +7,7 @@ import schema from './schema';
 import { PrismaClient } from '@prisma/client';
 import './utils/passport';
 import { authenticateJwt } from './utils/passport';
+import { isAuthenticated } from './utils/middlewares';
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 const server = new GraphQLServer({
   schema,
   context: ({ request }) => {
-    return { request, prisma };
+    return { request, prisma, isAuthenticated };
   },
 });
 
