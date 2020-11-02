@@ -9,8 +9,8 @@ clone instagram
 - [x] Comment on a photo
 - [x] Search by user
 - [x] Search by location
-- [ ] See user profile
-- [ ] See My profile
+- [x] See user profile
+- [x] See My profile
 - [x] Follow / unfollow user
 - [x] Edit my profile
 - [ ] create account
