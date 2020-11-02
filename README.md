@@ -11,6 +11,7 @@ clone instagram
 - [x] Search by location
 - [x] See user profile
 - [x] See My profile
+- [x] See the full post
 - [x] Follow / unfollow user
 - [x] Edit my profile
 - [ ] create account

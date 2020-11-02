@@ -79,7 +79,7 @@ type Message {
   updatedAt: Date
 }
 
-type profileResponse {
+type ProfileResponse {
   user: User!
   posts: [Post!]!
 }
