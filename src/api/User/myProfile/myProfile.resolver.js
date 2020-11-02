@@ -5,7 +5,7 @@ export default {
       const { user } = request;
       const profile = await prisma.user.findOne({ where: { id: user.id } });
       const posts = await prisma.post.findMany({
-        where: { user: { id: uer.id } },
+        where: { user: { id: user.id } },
       });
 
       return { user: profile, posts };
