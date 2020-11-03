@@ -14,10 +14,16 @@ clone instagram
 - [x] See the full post
 - [x] Follow / unfollow user
 - [x] Edit my profile
-- [ ] create account
+- [ ] Create account
 - [ ] Log in
-- [ ] Upload a photo
+- [x] Upload a photo
 - [ ] Edit the photo (delete)
 - [x] Create Account
 - [x] Request Secret
 - [x] Confirm Secret (login)
+- [x] See User like the post or not
+- [x] See one of user follow other user
+- [ ] Send private DM
+- [ ] Receive DM in realtime
+- [ ] See room
+- [ ] see room list
