@@ -4,17 +4,13 @@ export default {
       const { id } = args;
       const post = await prisma.post.findOne({
         where: { id },
-        include: { user: { select: { userName: true } } },
+        include: {
+          user: { select: { userName: true } },
+          files: { select: { url: true } },
+          comments: { select: { user: true, text: true, updatedAt: true } },
+        },
       });
-      const comments = await prisma.comment.findMany({
-        where: { post: { id } },
-      });
-      const likeCount = await prisma.like.count({ where: { post: { id } } });
-      return {
-        post,
-        comments,
-        likeCount,
-      };
+      return post;
     },
   },
 };
