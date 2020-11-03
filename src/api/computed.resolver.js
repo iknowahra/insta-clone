@@ -1,0 +1,42 @@
+export default {
+  User: {
+    fullName: parent => `${parent.firstName} ${parent.lastName}`,
+    amIFollowing: async (parent, _, { request, prisma }) => {
+      const { user } = request;
+      const { id: parentId } = parent; //this way is to re-define parent.id
+      try {
+        const exist = await prisma.user.count({
+          where: {
+            AND: [{ id: user.id }, { following: { some: { id: parentId } } }],
+          },
+        });
+        return exist ? true : false;
+      } catch (error) {
+        return false;
+      }
+    },
+    itsMe: (parent, _, { request }) => {
+      const { user } = request;
+      const { id: parentId } = parent;
+      return user.id === parentId;
+    },
+  },
+  Post: {
+    amILiking: async (parent, _, { request, prisma }) => {
+      const { user } = request;
+      const { id: parentId } = parent;
+      try {
+        const exist = await prisma.like.count({
+          where: {
+            AND: [{ userId: user.id }, { postId: parentId }],
+          },
+        });
+        return exist ? true : false;
+      } catch (error) {
+        return false;
+      }
+    },
+    likeCount: (parent, _, { prisma }) =>
+      prisma.like.count({ where: { post: { id: parent.id } } }),
+  },
+};
