@@ -4,7 +4,7 @@ clone instagram
 
 ## User Stories
 
-- [ ] See the feed
+- [x] See the feed
 - [x] Like / Unlike a photo
 - [x] Comment on a photo
 - [x] Search by user
@@ -17,7 +17,7 @@ clone instagram
 - [ ] Create account
 - [ ] Log in
 - [x] Upload a photo
-- [ ] Edit the photo (delete)
+- [x] Edit the post (delete)
 - [x] Create Account
 - [x] Request Secret
 - [x] Confirm Secret (login)
