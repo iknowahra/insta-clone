@@ -52,6 +52,7 @@ type Comment {
   user: User!
   post: Post!
   userId: Int
+  userName: String
   postId: Int
   createdAt: Date
   updatedAt: Date
