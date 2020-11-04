@@ -19,14 +19,20 @@ model User {
     firstName    String?   @default("")
     lastName    String? @default("")
     bio         String? @default("")
+    /// @onDelete(CASCADE)
     posts       Post[]
+    /// @onDelete(CASCADE)
     likes       Like[]
+    /// @onDelete(CASCADE)
     comments    Comment[]
+    /// @onDelete(CASCADE)
     rooms       Room[]
     loginSecret String?
     followers   User[]    @relation("FollowRelation")
     following   User[]    @relation("FollowRelation")
+    /// @onDelete(CASCADE)
     sender      Message[]   @relation("from")
+    /// @onDelete(CASCADE)
     receiver    Message[]   @relation("to")
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @default(now()) @updatedAt
@@ -38,8 +44,11 @@ model Post {
     caption   String
     user      User      @relation(fields: [userId], references: [id])
     userId    Int
+    /// @onDelete(CASCADE)
     files     File[]
+    /// @onDelete(CASCADE)
     likes     Like[]
+    /// @onDelete(CASCADE)
     comments  Comment[]
     createdAt DateTime  @default(now())
     updatedAt DateTime  @default(now()) @updatedAt
@@ -75,6 +84,7 @@ model File {
 
 model Room {
     id           Int       @id @default(autoincrement())
+    /// @onDelete(SET_NULL)
     participants User[]
     messages     Message[]
     createdAt    DateTime  @default(now())
@@ -84,7 +94,9 @@ model Room {
 model Message {
     id         Int      @id @default(autoincrement())
     text       String
+    /// @onDelete(SET_NULL)
     from       User     @relation("from", fields: [fromUserId], references: [id])
+    /// @onDelete(SET_NULL)
     to         User     @relation("to", fields: [toUserId], references: [id])
     room       Room     @relation(fields: [roomId], references: [id])
     createdAt  DateTime @default(now())

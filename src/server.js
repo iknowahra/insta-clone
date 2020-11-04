@@ -5,11 +5,23 @@ import { GraphQLServer } from 'graphql-yoga';
 import logger from 'morgan';
 import schema from './schema';
 import { PrismaClient } from '@prisma/client';
+import { PrismaDelete, onDeleteArgs } from '@paljs/plugins';
 import './utils/passport';
 import { authenticateJwt } from './utils/passport';
 import { isAuthenticated } from './utils/middlewares';
 
-const prisma = new PrismaClient();
+class Prisma extends PrismaClient {
+  constructor(options) {
+    super(options);
+  }
+
+  async onDelete(args) {
+    const prismaDelete = new PrismaDelete(this);
+    await prismaDelete.onDelete(args);
+  }
+}
+
+const prisma = new Prisma();
 
 const PORT = process.env.PORT || 5000;
 
