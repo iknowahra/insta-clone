@@ -2,6 +2,7 @@ scalar Date
 
 type User {
   id: Int!
+  avatar: String
   userName: String!
   email: String!
   firstName: String
@@ -14,6 +15,7 @@ type User {
   likes: [Like!]!
   comments: [Comment!]!
   rooms: [Room!]!
+  messages: [Message!]!
   loginSecret: String!
   amIFollowing: Boolean!
   itsMe: Boolean!
@@ -76,11 +78,9 @@ type Room {
 type Message {
   id: Int!
   text: String!
-  from: User!
-  to: User!
   room: Room!
-  fromUserId: Int
-  toUserId: Int
+  user: User!
+  userId: Int!
   createdAt: Date
   updatedAt: Date
 }

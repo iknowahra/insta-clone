@@ -1,0 +1,88 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "sender"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "receiver"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Message",
+      "field": "user",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "user"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[userId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Message",
+      "field": "userId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "from"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "to"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "fromUserId"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "toUserId"
+    }
+  ]
+}

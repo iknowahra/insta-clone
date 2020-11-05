@@ -3,7 +3,7 @@
 
 datasource db {
     provider = "mysql"
-    url      = env("DATABASE_URL")
+    url = "***"
 }
 
 generator client {
@@ -13,12 +13,12 @@ generator client {
 
 model User {
     id          Int       @id @default(autoincrement())
-    avatar      String?   @default("")
+    avatar      String? @default("")
     email       String    @unique
     userName    String    @unique
     firstName   String?   @default("")
-    lastName    String?   @default("")
-    bio         String?   @default("")
+    lastName    String? @default("")
+    bio         String? @default("")
     /// @onDelete(CASCADE)
     posts       Post[]
     /// @onDelete(CASCADE)
@@ -27,11 +27,10 @@ model User {
     comments    Comment[]
     /// @onDelete(CASCADE)
     rooms       Room[]
-    /// @onDelete(CASCADE)
-    messages    Message[]
     loginSecret String?
     followers   User[]    @relation("FollowRelation")
     following   User[]    @relation("FollowRelation")
+    /// @onDelete(CASCADE)
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @default(now()) @updatedAt
 }
@@ -92,7 +91,9 @@ model Room {
 model Message {
     id         Int      @id @default(autoincrement())
     text       String
+    /// @onDelete(SET_NULL)
     user       User     @relation(fields: [userId], references: [id])
+    /// @onDelete(SET_NULL)
     room       Room     @relation(fields: [roomId], references: [id])
     createdAt  DateTime @default(now())
     updatedAt  DateTime @default(now()) @updatedAt

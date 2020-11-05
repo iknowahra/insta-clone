@@ -9,8 +9,10 @@ export default {
         bio = '',
         avatar = '',
       } = args;
-      const user = await prisma.user.create({
-        data: {
+      const user = await prisma.user.upsert({
+        where: { email },
+        update: {},
+        create: {
           userName,
           email,
           firstName,
@@ -19,7 +21,6 @@ export default {
           avatar,
         },
       });
-      console.log(user);
       return user;
     },
   },
