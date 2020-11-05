@@ -3,7 +3,7 @@
 
 datasource db {
     provider = "mysql"
-    url      = env("DATABASE_URL")
+    url = "***"
 }
 
 generator client {
@@ -28,7 +28,7 @@ model User {
     /// @onDelete(CASCADE)
     rooms       Room[]
     /// @onDelete(CASCADE)
-    messages    Message[]
+    messages       Message[]
     loginSecret String?
     followers   User[]    @relation("FollowRelation")
     following   User[]    @relation("FollowRelation")
