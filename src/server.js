@@ -1,12 +1,12 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
+import './utils/passport';
 
-import { GraphQLServer } from 'graphql-yoga';
+import { GraphQLServer, PubSub } from 'graphql-yoga';
 import logger from 'morgan';
 import schema from './schema';
 import { PrismaClient } from '@prisma/client';
 import { PrismaDelete, onDeleteArgs } from '@paljs/plugins';
-import './utils/passport';
 import { authenticateJwt } from './utils/passport';
 import { isAuthenticated } from './utils/middlewares';
 
@@ -22,13 +22,14 @@ class Prisma extends PrismaClient {
 }
 
 const prisma = new Prisma();
+const pubsub = new PubSub();
 
 const PORT = process.env.PORT || 5000;
 
 const server = new GraphQLServer({
   schema,
   context: ({ request }) => {
-    return { request, prisma, isAuthenticated };
+    return { request, prisma, isAuthenticated, pubsub };
   },
 });
 
