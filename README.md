@@ -35,11 +35,11 @@ clone instagram using **grqphql-yoga, prisma 2, mysql**
 1. You should make `.env` file and then copy & paste and fill the blank fill in the blank 
 
 ```javascript
-PORT=					// should be number
-MAILGUN_API=		// you can get this api at https://mailgun.com
-MAILGUN_DOMAIN=  // you can get this api at https://mailgun.com
+PORT=	      // should be number
+MAILGUN_API=      // you can get this api at https://mailgun.com
+MAILGUN_DOMAIN=      // you can get this api at https://mailgun.com
 JWT_SECRET=
-SALT_ROUNDS= 		//should be 1-12
+SALT_ROUNDS=      //should be 1-12
 ```
 
 2. commend `$ npx prisma init`  
