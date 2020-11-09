@@ -5,6 +5,7 @@ type User {
   avatar: String
   userName: String!
   email: String!
+  password: String!
   firstName: String
   lastName: String
   fullName: String
@@ -17,6 +18,7 @@ type User {
   rooms: [Room!]!
   messages: [Message!]!
   loginSecret: String!
+  confirmSecret: Boolean!
   amIFollowing: Boolean!
   itsMe: Boolean!
   createdAt: Date

@@ -1,10 +1,11 @@
 type Mutation {
   createAccount(
     userName: String!
+    password: String!
     email: String!
     avatar: String
     firstName: String
     lastName: String
     bio: String
-  ): User!
+  ): User
 }
