@@ -1,8 +1,8 @@
 # insta-clone
 
-clone instagram
+clone instagram using **grqphql-yoga, prisma 2, mysql**
 
-## User Stories
+## You can do...
 
 - [x] See the feed
 - [x] Like / Unlike a photo
@@ -14,8 +14,8 @@ clone instagram
 - [x] See the full post
 - [x] Follow / unfollow user
 - [x] Edit my profile
-- [ ] Create account
-- [ ] Log in
+- [x] Create account
+- [x] Log in with passport-jwt
 - [x] Upload a photo
 - [x] Edit the post (delete)
 - [x] Create Account
@@ -23,7 +23,7 @@ clone instagram
 - [x] Confirm Secret (login)
 - [x] See User like the post or not
 - [x] See one of user follow other user
-- [ ] Send private DM
-- [ ] Receive DM in realtime
-- [ ] See room
-- [ ] see room list
+- [x] Send private DM
+- [x] Receive DM in realtime using subscription
+- [x] See room
+- [x] see room list
