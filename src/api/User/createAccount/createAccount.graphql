@@ -1,3 +1,7 @@
+type createAccountResponses {
+  ok: Boolean!
+  error: String
+}
 type Mutation {
   createAccount(
     userName: String!
@@ -7,5 +11,5 @@ type Mutation {
     firstName: String
     lastName: String
     bio: String
-  ): User
+  ): createAccountResponses!
 }
