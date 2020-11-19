@@ -11,9 +11,15 @@ export default {
           where: { email },
           data: { loginSecret },
         });
-        return true;
+        return {
+          ok: true,
+          error: null,
+        };
       } catch (error) {
-        return error;
+        return {
+          ok: false,
+          error,
+        };
       }
     },
   },

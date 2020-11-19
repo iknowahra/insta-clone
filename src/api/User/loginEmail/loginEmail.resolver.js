@@ -12,6 +12,7 @@ export default {
       });
       if (!user) {
         return {
+          user: null,
           token: null,
           error: 'There is no user.',
         };
@@ -19,11 +20,13 @@ export default {
         const checkPassword = bcrypt.compareSync(password, user.password);
         if (checkPassword) {
           return {
+            user,
             token: generateToken(user.id),
             error: null,
           };
         } else {
           return {
+            user: null,
             token: null,
             error: 'Wrong password',
           };

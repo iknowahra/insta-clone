@@ -16,23 +16,49 @@ export default {
         bio = '',
         avatar = '',
       } = args;
-      const existingUser = await prisma.user.findOne({ where: { email } });
-      if (!existingUser) {
-        const hash = bcrypt.hashSync(password, SALT_ROUNDS);
-        console.log(hash);
-        return prisma.user.create({
-          data: {
-            userName,
-            email,
-            password: hash,
-            firstName,
-            lastName,
-            bio,
-            avatar,
-          },
+      try {
+        const checkEmail = await prisma.user.findOne({
+          where: { email },
         });
-      } else {
-        throw Error('This Email has already been joined');
+        const checkUserName = await prisma.user.findOne({
+          where: { userName },
+        });
+        if (!checkEmail && !checkUserName) {
+          const hash = bcrypt.hashSync(password, SALT_ROUNDS);
+          await prisma.user.create({
+            data: {
+              userName,
+              email,
+              password: hash,
+              firstName,
+              lastName,
+              bio,
+              avatar,
+            },
+          });
+
+          return {
+            ok: true,
+            error: null,
+          };
+        } else {
+          if (checkEmail) {
+            return {
+              ok: false,
+              error: 'Already enrolled email!',
+            };
+          } else if (checkUserName) {
+            return {
+              ok: false,
+              error: 'Already enrolled username!',
+            };
+          }
+        }
+      } catch (error) {
+        return {
+          ok: false,
+          error,
+        };
       }
     },
   },

@@ -91,3 +91,8 @@ type ProfileResponse {
   user: User!
   posts: [Post!]!
 }
+
+type OkErrorResponse {
+  ok: Boolean
+  error: String
+}

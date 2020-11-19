@@ -1,7 +1,8 @@
-type loginEmailResponses {
+type loginEmailResponse {
   token: String
   error: String
+  user: User
 }
 type Mutation {
-  loginEmail(email: String!, password: String!): loginEmailResponses!
+  loginEmail(email: String!, password: String!): loginEmailResponse!
 }

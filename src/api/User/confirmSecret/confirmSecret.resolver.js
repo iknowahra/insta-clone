@@ -8,9 +8,15 @@ export default {
           where: { email },
           data: { loginSecret: '', confirmSecret: true },
         });
-        return updateUser;
+        return {
+          ok: true,
+          error: null,
+        };
       } else {
-        throw Error('wrong email/secret combination');
+        return {
+          ok: false,
+          error: 'wrong email/secret combination',
+        };
       }
     },
   },
