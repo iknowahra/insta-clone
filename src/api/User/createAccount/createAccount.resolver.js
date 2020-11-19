@@ -17,10 +17,14 @@ export default {
         avatar = '',
       } = args;
       try {
-        const existingUser = await prisma.user.findOne({ where: { email } });
-        if (!existingUser) {
+        const checkEmail = await prisma.user.findOne({
+          where: { email },
+        });
+        const checkUserName = await prisma.user.findOne({
+          where: { userName },
+        });
+        if (!checkEmail && !checkUserName) {
           const hash = bcrypt.hashSync(password, SALT_ROUNDS);
-          console.log(hash);
           await prisma.user.create({
             data: {
               userName,
@@ -38,10 +42,17 @@ export default {
             error: null,
           };
         } else {
-          return {
-            ok: false,
-            error: 'Already enrolled user!',
-          };
+          if (checkEmail) {
+            return {
+              ok: false,
+              error: 'Already enrolled email!',
+            };
+          } else if (checkUserName) {
+            return {
+              ok: false,
+              error: 'Already enrolled username!',
+            };
+          }
         }
       } catch (error) {
         return {
