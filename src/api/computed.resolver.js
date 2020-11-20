@@ -42,7 +42,8 @@ export default {
   Comment: {
     userName: async (parent, _, { prisma }) => {
       const { userId } = parent;
-      return await prisma.user.findOne({ where: { id: userId } }).userName;
+      const user = await prisma.user.findOne({ where: { id: userId } });
+      return user.userName;
     },
   },
 };
