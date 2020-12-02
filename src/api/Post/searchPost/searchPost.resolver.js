@@ -8,6 +8,12 @@ export default {
             { caption: { startsWith: args.term } },
           ],
         },
+        include: {
+          files: true,
+          comments: { orderBy: { createdAt: 'desc' } },
+          likes: true,
+          user: true,
+        },
       }),
   },
 };

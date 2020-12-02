@@ -45,5 +45,12 @@ export default {
       const user = await prisma.user.findOne({ where: { id: userId } });
       return user.userName;
     },
+    commentCount: async (parent, _, { prisma }) => {
+      const { postId } = parent;
+      const count = await prisma.comment.count({
+        where: { postId },
+      });
+      return count;
+    },
   },
 };

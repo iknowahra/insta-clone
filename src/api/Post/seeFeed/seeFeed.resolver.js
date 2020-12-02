@@ -12,7 +12,12 @@ export default {
         where: {
           userId: { in: [...followings, { id: user.id }].map(user => user.id) },
         },
-        include: { user: true, comments: true, likes: true, files: true },
+        include: {
+          user: true,
+          comments: { orderBy: { createdAt: 'desc' } },
+          likes: true,
+          files: true,
+        },
         orderBy: { updatedAt: 'desc' },
       });
       return posts;

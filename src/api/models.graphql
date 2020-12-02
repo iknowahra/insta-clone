@@ -58,6 +58,7 @@ type Comment {
   userId: Int
   userName: String
   postId: Int
+  commentCount: Int
   createdAt: Date
   updatedAt: Date
 }
