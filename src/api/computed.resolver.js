@@ -38,11 +38,19 @@ export default {
     },
     likeCount: (parent, _, { prisma }) =>
       prisma.like.count({ where: { post: { id: parent.id } } }),
+    commentCount: async (parent, _, { prisma }) => {
+      const { id: postId } = parent;
+      const count = await prisma.comment.count({
+        where: { postId },
+      });
+      return count;
+    },
   },
   Comment: {
     userName: async (parent, _, { prisma }) => {
       const { userId } = parent;
-      return await prisma.user.findOne({ where: { id: userId } }).userName;
+      const user = await prisma.user.findOne({ where: { id: userId } });
+      return user.userName;
     },
   },
 };

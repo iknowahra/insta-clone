@@ -36,6 +36,7 @@ type Post {
   userId: Int!
   amILiking: Boolean!
   likeCount: Int!
+  commentCount: Int!
   createdAt: Date
   updatedAt: Date
 }

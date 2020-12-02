@@ -22,6 +22,10 @@ export default {
             },
           ],
         },
+        include: {
+          followers: true,
+          following: true,
+        },
       });
     },
   },
