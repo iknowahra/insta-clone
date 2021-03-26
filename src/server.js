@@ -5,23 +5,12 @@ import './utils/passport';
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 import logger from 'morgan';
 import schema from './schema';
+import { uploadMiddleware, uploadController } from './utils/multer';
 import { PrismaClient } from '@prisma/client';
-import { PrismaDelete, onDeleteArgs } from '@paljs/plugins';
 import { authenticateJwt } from './utils/passport';
 import { isAuthenticated } from './utils/middlewares';
 
-class Prisma extends PrismaClient {
-  constructor(options) {
-    super(options);
-  }
-
-  async onDelete(args) {
-    const prismaDelete = new PrismaDelete(this);
-    await prismaDelete.onDelete(args);
-  }
-}
-
-const prisma = new Prisma();
+const prisma = new PrismaClient();
 const pubsub = new PubSub();
 
 const PORT = process.env.PORT || 5000;
@@ -42,6 +31,7 @@ const options = {
 
 server.express.use(logger('dev'));
 server.express.use(authenticateJwt);
+server.express.post('/api/upload', uploadMiddleware, uploadController);
 
 server.start(options, ({ port }) =>
   console.log(
