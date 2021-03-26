@@ -1,0 +1,8 @@
+type loginFbResponse {
+  token: String
+  error: String
+  user: User
+}
+type Mutation {
+  loginFb(email: String!, facebookId: String!): loginFbResponse!
+}

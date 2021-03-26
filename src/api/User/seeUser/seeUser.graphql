@@ -1,3 +1,3 @@
 type Query {
-  seeUser(id: Int!): ProfileResponse!
+  seeUser(userName: String!): ProfileResponse!
 }

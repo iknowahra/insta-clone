@@ -7,7 +7,7 @@ export default {
       },
       resolve: (payload, _, { prisma }) => {
         const { id } = payload.newMessage;
-        return prisma.message.findOne({ where: { id } });
+        return prisma.message.findUnique({ where: { id } });
       },
     },
   },

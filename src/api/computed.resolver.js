@@ -20,6 +20,24 @@ export default {
       const { id: parentId } = parent;
       return user.id === parentId;
     },
+    followingCount: async (parent, __, { request, prisma }) => {
+      const { id } = parent;
+      const following = await prisma.user
+        .findUnique({ where: { id } })
+        .following();
+      return following.length;
+    },
+    followersCount: async (parent, __, { request, prisma }) => {
+      const { id } = parent;
+      const followers = await prisma.user
+        .findUnique({ where: { id } })
+        .followers();
+      return followers.length;
+    },
+    postCount: async (parent, __, { prisma }) => {
+      const { id } = parent;
+      return await prisma.post.count({ where: { userId: id } });
+    },
   },
   Post: {
     amILiking: async (parent, _, { request, prisma }) => {
@@ -45,12 +63,22 @@ export default {
       });
       return count;
     },
+    fileCount: async (parent, _, { prisma }) => {
+      const { id: postId } = parent;
+      const count = await prisma.file.count({ where: { postId } });
+      return count;
+    },
   },
   Comment: {
     userName: async (parent, _, { prisma }) => {
       const { userId } = parent;
-      const user = await prisma.user.findOne({ where: { id: userId } });
+      const user = await prisma.user.findUnique({ where: { id: userId } });
       return user.userName;
+    },
+    avatar: async (parent, _, { prisma }) => {
+      const { userId } = parent;
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      return user.avatar;
     },
   },
 };

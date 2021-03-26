@@ -4,7 +4,7 @@ export default {
       isAuthenticated(request);
       const { user } = request;
       const followings = await prisma.user
-        .findOne({
+        .findUnique({
           where: { id: user.id },
         })
         .following({ select: { id: true } });

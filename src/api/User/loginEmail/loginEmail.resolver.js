@@ -7,7 +7,7 @@ export default {
   Mutation: {
     loginEmail: async (_, args, { prisma }) => {
       const { email, password } = args;
-      const user = await prisma.user.findOne({
+      const user = await prisma.user.findUnique({
         where: { email },
       });
       if (!user) {

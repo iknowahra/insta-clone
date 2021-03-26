@@ -5,11 +5,12 @@ type createAccountResponses {
 type Mutation {
   createAccount(
     userName: String!
-    password: String!
+    password: String
     email: String!
     avatar: String
     firstName: String
     lastName: String
     bio: String
+    facebookId: String
   ): createAccountResponses!
 }
