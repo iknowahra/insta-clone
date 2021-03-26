@@ -8,17 +8,17 @@ datasource db {
 
 generator client {
     provider = "prisma-client-js"
-    previewFeatures = ["connectOrCreate"]
 }
 
 model User {
     id          Int       @id @default(autoincrement())
     avatar      String?   @default("")
     email       String    @unique
-    password    String    @default("")
+    password    String?    @default("")
     userName    String    @unique
     firstName   String?   @default("")
     lastName    String?   @default("")
+    facebookId  String?   @unique
     bio         String?   @default("")
     /// @onDelete(CASCADE)
     posts       Post[]

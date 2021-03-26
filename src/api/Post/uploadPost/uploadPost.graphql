@@ -1,3 +1,7 @@
 type Mutation {
-  uploadPost(caption: String, location: String, files: [String!]!): Post!
+  uploadPost(
+    caption: String
+    location: String
+    files: String!
+  ): OkErrorResponse!
 }

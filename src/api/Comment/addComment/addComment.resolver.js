@@ -13,6 +13,7 @@ export default {
           text,
         },
       });
+
       return newComment;
     },
   },

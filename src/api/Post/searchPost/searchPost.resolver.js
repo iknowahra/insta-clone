@@ -1,11 +1,19 @@
 export default {
   Query: {
-    searchPost: async (_, args, { prisma }) =>
-      await prisma.post.findMany({
+    searchPost: async (_, args, { prisma }) => {
+      const posts = await prisma.post.findMany({
         where: {
           OR: [
-            { location: { startsWith: args.term } },
-            { caption: { startsWith: args.term } },
+            {
+              location: {
+                contains: args.term,
+              },
+            },
+            {
+              caption: {
+                contains: args.term,
+              },
+            },
           ],
         },
         include: {
@@ -14,6 +22,11 @@ export default {
           likes: true,
           user: true,
         },
-      }),
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+      return posts;
+    },
   },
 };

@@ -15,16 +15,19 @@ export default {
         lastName = '',
         bio = '',
         avatar = '',
+        facebookId,
       } = args;
       try {
-        const checkEmail = await prisma.user.findOne({
+        const checkEmail = await prisma.user.findUnique({
           where: { email },
         });
-        const checkUserName = await prisma.user.findOne({
+        const checkUserName = await prisma.user.findUnique({
           where: { userName },
         });
         if (!checkEmail && !checkUserName) {
-          const hash = bcrypt.hashSync(password, SALT_ROUNDS);
+          const hash =
+            password === '' ? '' : bcrypt.hashSync(password, SALT_ROUNDS);
+          const confirmSecret = facebookId ? true : false;
           await prisma.user.create({
             data: {
               userName,
@@ -34,6 +37,8 @@ export default {
               lastName,
               bio,
               avatar,
+              facebookId,
+              confirmSecret,
             },
           });
 
