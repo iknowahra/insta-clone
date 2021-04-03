@@ -21,15 +21,30 @@ export default {
             },
           });
         });
+        console.log(post);
+        const newPost = await prisma.post.findUnique({
+          where: {
+            id: post.id,
+          },
+          include: {
+            user: true,
+            comments: { orderBy: { createdAt: 'desc' } },
+            likes: true,
+            files: true,
+          },
+        });
+
         return {
           ok: true,
           error: null,
+          post: newPost,
         };
       } catch (error) {
         console.log(error);
         return {
           ok: false,
           error,
+          post: null,
         };
       }
     },

@@ -11,6 +11,11 @@ export default {
               },
             },
             {
+              name: {
+                contains: term,
+              },
+            },
+            {
               firstName: {
                 contains: term,
               },

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export default {
   User: {
     fullName: parent => `${parent.firstName} ${parent.lastName}`,
@@ -37,6 +38,17 @@ export default {
     postCount: async (parent, __, { prisma }) => {
       const { id } = parent;
       return await prisma.post.count({ where: { userId: id } });
+    },
+    friends: async (parent, __, { prisma }) => {
+      const { id } = parent;
+      const followers = await prisma.user
+        .findUnique({ where: { id } })
+        .followers();
+      const following = await prisma.user
+        .findUnique({ where: { id } })
+        .following();
+      const result = _.uniqBy(followers.concat(following), 'id');
+      return result;
     },
   },
   Post: {

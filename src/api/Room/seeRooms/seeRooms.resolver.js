@@ -5,7 +5,11 @@ export default {
       const { user } = request;
       return prisma.room.findMany({
         where: { participants: { some: { id: user.id } } },
-        include: { participants: true },
+        include: {
+          participants: true,
+          messages: { orderBy: { createdAt: 'desc' } },
+        },
+        orderBy: { updatedAt: 'desc' },
       });
     },
   },

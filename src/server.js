@@ -1,19 +1,20 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 import './utils/passport';
-
 import { GraphQLServer, PubSub } from 'graphql-yoga';
+
+import cors from 'cors';
 import logger from 'morgan';
 import schema from './schema';
+
 import { uploadMiddleware, uploadController } from './utils/multer';
 import { PrismaClient } from '@prisma/client';
 import { authenticateJwt } from './utils/passport';
 import { isAuthenticated } from './utils/middlewares';
 
+const PORT = process.env.PORT || 5000;
 const prisma = new PrismaClient();
 const pubsub = new PubSub();
-
-const PORT = process.env.PORT || 5000;
 
 const server = new GraphQLServer({
   schema,
@@ -29,6 +30,7 @@ const options = {
   playground: '/playground',
 };
 
+//server.express.use(cors());
 server.express.use(logger('dev'));
 server.express.use(authenticateJwt);
 server.express.post('/api/upload', uploadMiddleware, uploadController);
