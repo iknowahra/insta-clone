@@ -1,7 +1,12 @@
+type UpdatePostRespose {
+  ok: Boolean
+  error: String
+  post: Post
+}
 type Mutation {
   uploadPost(
     caption: String
     location: String
     files: String!
-  ): OkErrorResponse!
+  ): UpdatePostRespose!
 }

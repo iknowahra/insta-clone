@@ -1,33 +1,83 @@
+//최선인지..? lodash를 이용해서 더 간단하게 만들 순 없는지..?
 export default {
   Mutation: {
-    makeRoom: async (_, args, { request, prisma, isAuthenticated }) => {
+    makeRoom: async (
+      _,
+      { toIds, name },
+      { request, prisma, isAuthenticated },
+    ) => {
       isAuthenticated(request);
       const { user } = request;
-      const { toId } = args;
-      if (toId === user.id) {
-        throw Error('You cannot invite yourself.');
-      } else {
-        let room = await prisma.room.findMany({
-          where: {
-            AND: [
-              { participants: { some: { id: user.id } } },
-              { participants: { some: { id: toId } } },
-            ],
+      let duplication;
+      if (toIds.includes(user.id)) {
+        return {
+          ok: false,
+          error: `You cannot invite yourself`,
+          room: null,
+        };
+      }
+      if (toIds.length === 0) {
+        return {
+          ok: false,
+          error: `You invite at least one person`,
+          room: null,
+        };
+      }
+
+      let conditions = toIds.map(id => {
+        return {
+          participants: {
+            some: {
+              id,
+            },
           },
-          include: { participants: true },
+        };
+      });
+
+      let rooms = await prisma.room.findMany({
+        where: {
+          AND: [...conditions, { participants: { some: { id: user.id } } }],
+        },
+        include: { participants: true, messages: true },
+      });
+
+      rooms = rooms.filter(
+        room => room.participants.length === toIds.length + 1,
+      );
+
+      if (!rooms.length) {
+        duplication = false;
+        conditions = toIds.map(id => {
+          return {
+            id,
+          };
         });
 
-        if (!room.length) {
-          room = await prisma.room.create({
-            data: {
-              participants: {
-                connect: [{ id: user.id }, { id: toId }],
-              },
+        const newRoom = await prisma.room.create({
+          data: {
+            name,
+            participants: {
+              connect: [...conditions, { id: user.id }],
             },
-          });
-        }
-        return room[0];
+          },
+        });
+
+        rooms = await prisma.room.findMany({
+          where: {
+            id: newRoom.id,
+          },
+          include: { participants: true, messages: true },
+        });
+      } else {
+        duplication = true;
       }
+
+      return {
+        ok: true,
+        error: null,
+        room: rooms[0],
+        duplication,
+      };
     },
   },
 };

@@ -1,3 +1,10 @@
 type Mutation {
-  makeRoom(toId: Int!): Room!
+  makeRoom(toIds: [Int!]!, name: String): makeRoomResponse!
+}
+
+type makeRoomResponse {
+  ok: Boolean!
+  error: String
+  room: Room
+  duplication: Boolean
 }

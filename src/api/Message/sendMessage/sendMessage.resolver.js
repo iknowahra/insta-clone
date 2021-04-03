@@ -1,13 +1,14 @@
+const NEW_MESSAGE = 'NEW_MESSAGE';
 export default {
   Mutation: {
     sendMessage: async (
       _,
-      args,
+      { roomId, text },
       { prisma, isAuthenticated, request, pubsub },
     ) => {
       isAuthenticated(request);
       const { user } = request;
-      const { roomId, text } = args;
+
       try {
         const isRightUser = await prisma.room.count({
           where: {
@@ -24,8 +25,13 @@ export default {
               user: { connect: { id: user.id } },
             },
           });
-          pubsub.publish('newMessage', { newMessage: message });
-          return message;
+          const newMessage = await prisma.message.findUnique({
+            where: { id: message.id },
+            include: { room: true, user: true },
+          });
+
+          pubsub.publish(NEW_MESSAGE, { newMessage });
+          return newMessage;
         }
       } catch (error) {
         throw Error('Oops. Something wrong!');
