@@ -26,7 +26,6 @@ const uploadS3 = multer({
 export const uploadMiddleware = uploadS3.array('photos', 10);
 
 export const uploadController = async (req, res) => {
-  console.log('****', req.files);
   // If File not found
   if (req.files === undefined) {
     console.log('uploadProductsImages Error: No File Selected!');
@@ -41,7 +40,6 @@ export const uploadController = async (req, res) => {
     const images = [];
     for (let i = 0; i < fileArray.length; i++) {
       fileLocation = fileArray[i].location;
-      console.log('filenm', fileLocation);
       images.push(fileLocation);
     }
     // Save the file name into database

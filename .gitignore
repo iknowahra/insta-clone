@@ -4,3 +4,4 @@
 *generated/*
 prisma.yml
 test.js
+*prisma/migrations/*

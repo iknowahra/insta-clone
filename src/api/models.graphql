@@ -5,6 +5,7 @@ type User {
   avatar: String
   userName: String!
   email: String!
+  name: String
   password: String
   firstName: String
   lastName: String
@@ -25,6 +26,7 @@ type User {
   followersCount: Int!
   followingCount: Int!
   postCount: Int!
+  friends: [User!]!
   createdAt: Date
   updatedAt: Date
 }
