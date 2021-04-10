@@ -13,6 +13,7 @@ export default {
         email,
         firstName = '',
         lastName = '',
+        name: userInitName = '',
         bio = '',
         avatar = '',
         facebookId,
@@ -28,7 +29,7 @@ export default {
           const hash =
             password === '' ? '' : bcrypt.hashSync(password, SALT_ROUNDS);
           const confirmSecret = facebookId ? true : false;
-          const name = `${firstName} ${lastName}`;
+          const name = userInitName || `${firstName} ${lastName}`;
           await prisma.user.create({
             data: {
               userName,
