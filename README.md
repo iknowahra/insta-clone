@@ -27,6 +27,7 @@ clone instagram using **grqphql-yoga, prisma 2, mysql**
 - [x] Receive DM in realtime using subscription
 - [x] See room
 - [x] see room list
+- [x] Search rooms with terms
 
 ## Before Start ...
 
