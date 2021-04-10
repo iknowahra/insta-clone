@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node build/server.js",
-    "prisma": "npm run migrate && npm run generate",
+    "prisma": "npm run generate",
     "generate": "npx prisma generate",
     "migrate": "npx prisma migrate deploy --preview-feature",
     "prebuild": "npm run prisma",
