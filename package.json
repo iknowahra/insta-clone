@@ -4,10 +4,12 @@
   "description": "clone instagram with graphql & prisma 2 & mysql",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server.js",
+    "start": "node build/server.js",
     "prisma": "npm run migrate && generate",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate save --name init --experimental && npx prisma migrate up --experimental"
+    "migrate": "npx prisma migrate save --name init --experimental && npx prisma migrate up --experimental",
+    "build": "babel src -d build",
+    "postbuild": "cd src && npx copy api/*.graphql ../build && npx copy api/**/**/*.graphql ../build"
   },
   "repository": {
     "type": "git",
@@ -20,8 +22,10 @@
   },
   "homepage": "https://github.com/iknowahra/insta-clone#readme",
   "dependencies": {
+    "@babel/cli": "7.13.14",
     "@babel/core": "7.12.3",
     "@babel/preset-env": "7.12.1",
+    "@babel/runtime": "7.13.10",
     "@graphql-tools/load-files": "6.2.4",
     "@graphql-tools/merge": "6.2.5",
     "@graphql-tools/schema": "7.0.0",
@@ -45,7 +49,9 @@
     "passport-jwt": "4.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "7.13.14",
     "@babel/node": "7.12.1",
+    "@babel/plugin-transform-runtime": "7.13.15",
     "@prisma/cli": "2.10.1",
     "babel-cli": "6.26.0",
     "eslint": "7.2.0",
@@ -62,6 +68,7 @@
     "nodemon": "2.0.6",
     "prettier": "2.1.2",
     "prettier-eslint": "11.0.0",
-    "prisma": "2.17.0"
+    "prisma": "2.17.0",
+    "copy": "0.3.2"
   }
 }

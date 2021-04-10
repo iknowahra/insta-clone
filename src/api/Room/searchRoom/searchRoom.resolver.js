@@ -10,7 +10,16 @@ export default {
               participants: {
                 some: {
                   userName: {
-                    contains: term,
+                    startsWith: term,
+                  },
+                },
+              },
+            },
+            {
+              participants: {
+                some: {
+                  name: {
+                    startsWith: term,
                   },
                 },
               },
