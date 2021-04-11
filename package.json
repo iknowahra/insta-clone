@@ -7,7 +7,7 @@
     "start": "node build/server.js",
     "prisma": "npm run migrate && npm run generate",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate deploy --preview-feature",
+    "migrate": "npx prisma migrate save --experimental",
     "prebuild": "npm run prisma",
     "build": "babel src -d build",
     "postbuild": "cd src && npx copy api/*.graphql ../build && npx copy api/**/**/*.graphql ../build"
