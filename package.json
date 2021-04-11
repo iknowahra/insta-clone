@@ -5,9 +5,9 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node build/server.js",
-    "prisma": "npm run migrate && npm run generate",
+    "prisma": "npm run generate",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate",
+    "migrate": "npx prisma migrate dev",
     "prebuild": "npm run prisma",
     "build": "babel src -d build",
     "postbuild": "cd src && npx copy api/*.graphql ../build && npx copy api/**/**/*.graphql ../build"
