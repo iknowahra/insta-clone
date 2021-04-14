@@ -4,6 +4,7 @@
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
@@ -15,7 +16,7 @@ model User {
     id          Int       @id @default(autoincrement())
     avatar      String?   @default("") @db.VarChar(500)
     email       String    @unique
-    password    String?    @default("")
+    password    String?   @default("")
     userName    String    @unique
     name        String?   @default("")
     firstName   String?   @default("")
@@ -33,7 +34,7 @@ model User {
     /// @onDelete(CASCADE)
     messages    Message[]
     loginSecret String?
-    confirmSecret Boolean @default(false)
+    confirmSecret Boolean @default(false) @db.Boolean
     followers   User[]    @relation("FollowRelation")
     following   User[]    @relation("FollowRelation")
     createdAt   DateTime  @default(now())
