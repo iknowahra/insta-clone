@@ -4,22 +4,29 @@ import { generateToken } from '../../../utils/utils';
 
 export default {
   Mutation: {
-    loginFb: async (_, args, { prisma }) => {
-      const { email, facebookId } = args;
-      const user = await prisma.user.findMany({
-        where: { AND: [{ email, facebookId }] },
+    loginFb: async (_, { email, facebookId }, { prisma }) => {
+      let user = await prisma.user.findUnique({
+        where: { email },
       });
-
-      if (!user.length) {
+      if (!user) {
         return {
           user: null,
           token: null,
           error: 'There is no user.',
         };
       } else {
+        if (user.facebookId !== facebookId) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              facebookId,
+            },
+          });
+          user = await prisma.user.findUnique({ where: { id: user.id } });
+        }
         return {
-          user: user[0],
-          token: generateToken(user[0].id),
+          user: user,
+          token: generateToken(user.id),
           error: null,
         };
       }
