@@ -6,3 +6,4 @@ prisma.yml
 test.js
 *prisma/migrations/*
 build/
+.idea

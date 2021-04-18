@@ -13,7 +13,7 @@ var s3 = new aws.S3({
 const uploadS3 = multer({
   storage: multerS3({
     s3,
-    bucket: 'instaclone1234',
+    bucket: process.env.S3_BUCKET,
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
@@ -49,4 +49,29 @@ export const uploadController = async (req, res) => {
       locationArray: images,
     });
   }
+};
+
+export const getS3Picture = (req, res) => {
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: process.env.S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read',
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
 };
