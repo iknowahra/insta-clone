@@ -6,5 +6,6 @@ type Mutation {
     lastName: String
     bio: String
     avatar: String
-  ): User!
+    password: String
+  ):OkErrorResponse!
 }

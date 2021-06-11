@@ -1,20 +1,25 @@
+import { tidyArgs } from '../../../utils/utils';
 export default {
   Mutation: {
     editUser: async (_, args, { request, prisma, isAuthenticated }) => {
-      isAuthenticated(request);
-      const { userName, email, firstName, lastName, bio, avatar } = args;
-      const { user } = request;
-      return await prisma.user.update({
-        where: { id: user.id },
-        data: {
-          userName,
-          email,
-          firstName,
-          lastName,
-          bio,
-          avatar,
-        },
-      });
+      try {
+        isAuthenticated(request);
+        const { user } = request;
+        const cleanArgs = tidyArgs(args);
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { ...cleanArgs },
+        });
+        return {
+          ok: true,
+          error: false,
+        };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error,
+        };
+      }
     },
   },
 };

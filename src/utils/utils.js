@@ -27,3 +27,11 @@ export const sendSecretMail = (address, userName, secret) => {
 };
 
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);
+
+export const tidyArgs = args => {
+  for(const props in args) {
+   if(!args[props]){
+     delete args[props]
+   } 
+  }
+}
