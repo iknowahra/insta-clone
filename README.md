@@ -39,6 +39,10 @@ MAILGUN_API=
 MAILGUN_DOMAIN=
 JWT_SECRET=
 SALT_ROUNDS=
+S3_BUCKET=
+AWS_ACCESSKEY=
+AWS_SECRET=
+AWS_REGION=
 // when it comes to Mailgun api&domain, you can get this api at https://mailgun.com
 ```
 
@@ -51,5 +55,7 @@ SALT_ROUNDS=
 4. `npm run prima` for migrating db and generating prisma client
 
 ## Start
+
+`npm run build`
 
 `npm start`

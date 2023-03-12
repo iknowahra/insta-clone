@@ -37,6 +37,6 @@ server.express.post('/api/upload', uploadMiddleware, uploadController);
 
 server.start(options, ({ port }) =>
   console.log(
-    `Server started, listening on port ${port} for incoming requests.`,
+    `🚀 Server started, listening on port ${port} for incoming requests.`,
   ),
 );
